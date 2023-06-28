@@ -12,16 +12,17 @@ services:
       - mosquitto_log:/mosquitto/log
       - ./mosquitto/config:/mosquitto/config
     
-  #lv_hmp4040:
-  #  image: centos:low_voltage
-  #  build: ../..
-  #  restart: always
-  #  stdin_open: true
-  #  tty: true 
-  #  volumes:
-  #    - low_voltage:/usr/app/low_voltage/
+#  lv_hmp4040:
+#    image: centos:tedd_dcs_low_voltage
+#    platform: linux/amd64
+#    build: ../..
+#    restart: always
+#    stdin_open: true
+#    tty: true 
+#    volumes:
+#      - low_voltage:/usr/app/low_voltage/
 
 volumes:
   mosquitto_data:
   mosquitto_log:
-  #low_voltage:
+#  low_voltage:

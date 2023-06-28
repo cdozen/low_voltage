@@ -1,5 +1,5 @@
-#FROM  centos:centos7
-FROM  --platform=linux/amd64 centos:centos7 
+FROM  centos:centos7
+#FROM  --platform=linux/amd64 centos:centos7 
 
 WORKDIR /usr/app
 

@@ -5,7 +5,7 @@
 import pyvisa as visa
 
 rm = visa.ResourceManager("/usr/lib64/librsvisa.so@ivi")
-HMP4040 = rm.open_resource("TCPIP::192.168.1.203::10002::SOCKET")
+HMP4040 = rm.open_resource("TCPIP::192.168.1.202::5025::SOCKET")
 HMP4040.read_termination = "\n"
 HMP4040.write_termination = "\n"
 HMP4040.write("*IDN?")
