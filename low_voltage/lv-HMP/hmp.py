@@ -17,8 +17,12 @@ class Channel(object):
 
 
 class HMP(object):
-    rm = visa.ResourceManager( "/usr/lib64/librsvisa.so@ivi")  # use the default backend(NI) visa shared library.
-    HMP4040 = rm.open_resource( "TCPIP::192.168.1.202::5025::SOCKET")  # connect to R&S HMP4040 device via TCPIP
+    rm = visa.ResourceManager(
+        "/usr/lib64/librsvisa.so@ivi"
+    )  # use the default backend(NI) visa shared library.
+    HMP4040 = rm.open_resource(
+        "TCPIP::192.168.1.202::5025::SOCKET"
+    )  # connect to R&S HMP4040 device via TCPIP
     num_of_channels = 5
 
     def __init__(self, name: str, n_channels: int = 5):

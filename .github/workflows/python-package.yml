@@ -45,6 +45,14 @@ jobs:
         docker-compose up -d 
         docker-compose ps -a
         cd - 
+    - name: Debug info
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "Directory contents:"
+        ls -R
+        echo "File contents (hmp.py):"
+        cat low_voltage/lv-HMP/hmp.py
     - name: Run black --check .
       run: black --check . --exclude _actions
     - name: Test with pytest
