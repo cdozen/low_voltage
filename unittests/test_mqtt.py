@@ -4,7 +4,7 @@ from fixtures import env
 
 @pytest.fixture
 def mqtt(env):
-    import low_voltage.mqtt as mqtt_mod
+    import mqtt as mqtt_mod
 
     return mqtt_mod
 
