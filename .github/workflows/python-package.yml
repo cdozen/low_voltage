@@ -59,7 +59,7 @@ jobs:
       run: |
         pwd
         ls -R 
-        cd low_voltage/unittests
+        cd unittests
         ls -R 
         python3 -m pip install pytest-cov
         python3 -m pytest --cov=../ --cov-report=xml
