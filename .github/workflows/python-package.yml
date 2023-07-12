@@ -58,9 +58,10 @@ jobs:
     - name: Test with pytest
       run: |
         pwd
-        ls -R 
+        ls
         cd unittests
-        ls -R 
+        pwd
+        ls
         python3 -m pip install pytest-cov
         python3 -m pytest --cov=../ --cov-report=xml
         ls
