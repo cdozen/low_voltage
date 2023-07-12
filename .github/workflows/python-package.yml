@@ -32,7 +32,10 @@ jobs:
       run: |
         python3 -m pip install -r requirements/local.txt
         python3 -m pip install -e .
-    
+    - name: Print Python environment
+      run: |
+        python3 --version
+        python3 -m pip list
     - name: Docker-compose start mqtt and low_voltage
       run: | 
         cd docker/tedd_low_voltage
@@ -45,12 +48,16 @@ jobs:
         cd - 
     - name: Run black --check .
       run: black --check . --exclude _actions
+    - name: Print current directory
+      run: pwd
     - name: Test with pytest
       run: |
         cd unittests
         python3 -m pip install pytest-cov
         python3 -m pytest --cov=../ --cov-report=xml
         ls
+    - name: Print current directory
+      run: pwd
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
