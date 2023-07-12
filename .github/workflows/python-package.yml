@@ -4,8 +4,8 @@
 name: Python package
 
 on:
-  pull_request:
-    branches: [ main, dev ]
+  push:
+    branches: [ dev ]
 
 jobs:
   build:
