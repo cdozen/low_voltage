@@ -57,6 +57,7 @@ jobs:
       run: black --check . --exclude _actions
     - name: Test with pytest
       run: |
+        pwd
         cd unittests
         python3 -m pip install pytest-cov
         python3 -m pytest --cov=../ --cov-report=xml
