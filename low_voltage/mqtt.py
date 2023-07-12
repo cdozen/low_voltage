@@ -3,7 +3,7 @@ import paho.mqtt.client as mqtt
 from low_voltage.utils.logger import logger
 
 
-#mqtt_host = os.environ["MQTT_HOST"]
+# mqtt_host = os.environ["MQTT_HOST"]
 def connect_to_mqtt():
     mqtt_host = os.environ.get("MQTT_HOST")
     if mqtt_host is None:
@@ -15,9 +15,7 @@ def connect_to_mqtt():
         # reconnect then subscriptions will be renewed.
         logger.info(f"connected to mqtt broker: {mqtt_host}")
 
-
     client = mqtt.Client()
     client.on_connect = on_connect
     client.connect(mqtt_host, 1883, 60)
     return client
-

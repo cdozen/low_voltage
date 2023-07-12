@@ -10,4 +10,3 @@ def mqtt(env):
 
 def test_connect(mqtt):
     assert mqtt is not None
-
