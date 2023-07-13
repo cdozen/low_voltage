@@ -1,5 +1,5 @@
-#FROM  centos:centos7
-FROM  --platform=linux/amd64 centos:centos7 
+FROM  centos:centos7
+#FROM  --platform=linux/amd64 centos:centos7 
 
 WORKDIR /usr/app
 
@@ -18,7 +18,6 @@ RUN yum install -y rpm && \
 WORKDIR /usr/app/low_voltage/
 
 COPY low_voltage/lv-HMP .
-COPY low_voltage/lv-HMP/.env .env
 
 #===rpm and zip packages (provided by Pierre) are in driver directory====//
 COPY low_voltage/driver/ .
