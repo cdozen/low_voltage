@@ -32,6 +32,7 @@ jobs:
       run: |
         python3 -m pip install -r requirements/local.txt
         python3 -m pip install -e .
+    
     - name: Print Python environment
       run: |
         python3 --version
