@@ -2,10 +2,20 @@ import paho.mqtt.client as mqtt
 from dataclasses import dataclass
 import time
 import json
+import os
+from typing import Union
 
 # import visa
 import pyvisa as visa
-from typing import Union
+
+
+def load_env_file():
+    env_file = ".env"
+    if os.path.exists(env_file):
+        with open(env_file, "r") as file:
+            for line in file:
+                key, value = line.strip().split("=", 1)
+                os.environ[key] = value
 
 
 @dataclass
@@ -20,8 +30,10 @@ class HMP(object):
     rm = visa.ResourceManager(
         "/usr/lib64/librsvisa.so@ivi"
     )  # use the default backend(NI) visa shared library.
+    HMP4040_IP = os.getenv("HMP_IP")
+    HMP4040_PORT = os.getenv("HMP_PORT")
     HMP4040 = rm.open_resource(
-        "TCPIP::192.168.1.202::5025::SOCKET"
+        f"TCPIP::{HMP4040_IP}::{HMP4040_PORT}::SOCKET"
     )  # connect to R&S HMP4040 device via TCPIP
     num_of_channels = 5
 
@@ -181,5 +193,6 @@ if __name__ == "__main__":
     import sys
 
     device_name, mqtt_host = sys.argv[1:]
+    load_env_file()  # Load environment variables from .env file
     device = HMP(device_name)
     run(device, mqtt_host)

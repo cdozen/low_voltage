@@ -1,27 +1,29 @@
-# for python2
-# import visa
-# rm = visa.ResourceManager("/usr/lib64/librsvisa.so@ni")
-# for python3
 import pyvisa as visa
+import os
+
+
+def load_env_file():
+    env_file = ".env"
+    if os.path.exists(env_file):
+        with open(env_file, "r") as file:
+            for line in file:
+                key, value = line.strip().split("=", 1)
+                os.environ[key] = value
+
+
+load_env_file()  # Load environment variables from .env file
 
 rm = visa.ResourceManager("/usr/lib64/librsvisa.so@ivi")
-HMP4040 = rm.open_resource("TCPIP::192.168.1.202::5025::SOCKET")
+HMP4040_IP = os.environ.get("HMP_IP")
+HMP4040_PORT = os.environ.get("HMP_PORT")
+HMP4040 = rm.open_resource(f"TCPIP::{HMP4040_IP}::{HMP4040_PORT}::SOCKET")
 HMP4040.read_termination = "\n"
 HMP4040.write_termination = "\n"
 HMP4040.write("*IDN?")
 idn = HMP4040.read()
 print("IDN:", idn)
-HMP4040.set_visa_attribute(visa.constants.VI_ATTR_TERMCHAR_EN, True)
-attr = HMP4040.get_visa_attribute(visa.constants.VI_ATTR_TERMCHAR_EN)
-print("Attrib. TERMCHAR_EN:", attr)
-HMP4040.set_visa_attribute(visa.constants.VI_ATTR_SUPPRESS_END_EN, False)
-attr = HMP4040.get_visa_attribute(visa.constants.VI_ATTR_SUPPRESS_END_EN)
-print("Attrib. SUPPRESS_END_EN:", attr)
-# HMP4040.set_visa_attribute(visa.constants.VI_ATTR_SEND_END_EN,True)
-# attr = HMP4040.get_visa_attribute(visa.constants.VI_ATTR_SEND_END_EN)
-# print("Attrib. SEND_END_EN:", attr)
-print()
 
+# Rest of your code below...
 HMP4040.write("INST:NSEL 1")
 HMP4040.write("INST:NSEL?")
 Channel = HMP4040.read()
