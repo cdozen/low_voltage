@@ -31,7 +31,9 @@ class HMP(object):
         "/usr/lib64/librsvisa.so@ivi"
     )  # use the default backend(NI) visa shared library.
     HMP4040_IP = os.getenv("HMP_IP")
+    print("R&S LV IP : " , HMP4040_IP)
     HMP4040_PORT = os.getenv("HMP_PORT")
+    print("R&S LV PORT : ", HMP4040_PORT)
     HMP4040 = rm.open_resource(
         f"TCPIP::{HMP4040_IP}::{HMP4040_PORT}::SOCKET"
     )  # connect to R&S HMP4040 device via TCPIP
