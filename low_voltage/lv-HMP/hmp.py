@@ -21,7 +21,7 @@ class Channel(object):
 
 class HMP(object):
     rm = visa.ResourceManager("/usr/lib64/librsvisa.so@ivi")
-    config = dotenv_values(".hmp_env")
+    config = dotenv_values("hmp.env")
     print("config ", config)
     ip = os.getenv("IP", config["IP"])
     print("hmp ip ", ip)

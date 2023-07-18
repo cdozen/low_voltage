@@ -19,7 +19,7 @@ RUN yum install -y rpm && \
 WORKDIR /usr/app/low_voltage/
 
 COPY low_voltage/lv-HMP .
-COPY low_voltage/lv-HMP/.hmp_env .hmp_env
+COPY low_voltage/lv-HMP/hmp.env .hmp.env
 RUN ls -la
 
 #===rpm and zip packages (provided by Pierre) are in driver directory====//
