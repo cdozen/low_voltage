@@ -5,7 +5,8 @@ WORKDIR /usr/app
 
 RUN yum update -y && \
     yum install -y python3 && \
-    python3 -m pip install --upgrade && \
+    python3 -m pip install --upgrade pip && \
+    python3 -m pip install python-dotenv && \
     python3 -m pip install -U PyVISA-py PyVISA
 
 
@@ -18,6 +19,8 @@ RUN yum install -y rpm && \
 WORKDIR /usr/app/low_voltage/
 
 COPY low_voltage/lv-HMP .
+COPY low_voltage/lv-HMP/.hmp_env .hmp_env
+RUN ls -la
 
 #===rpm and zip packages (provided by Pierre) are in driver directory====//
 COPY low_voltage/driver/ .

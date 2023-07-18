@@ -8,14 +8,7 @@ from typing import Union
 # import visa
 import pyvisa as visa
 
-
-def load_env_file():
-    env_file = ".env"
-    if os.path.exists(env_file):
-        with open(env_file, "r") as file:
-            for line in file:
-                key, value = line.strip().split("=", 1)
-                os.environ[key] = value
+from dotenv import dotenv_values
 
 
 @dataclass
@@ -27,16 +20,19 @@ class Channel(object):
 
 
 class HMP(object):
-    rm = visa.ResourceManager(
-        "/usr/lib64/librsvisa.so@ivi"
-    )  # use the default backend(NI) visa shared library.
-    HMP4040_IP = os.getenv("HMP_IP")
-    print("R&S LV IP : ", HMP4040_IP)
-    HMP4040_PORT = os.getenv("HMP_PORT")
-    print("R&S LV PORT : ", HMP4040_PORT)
-    HMP4040 = rm.open_resource(
-        f"TCPIP::{HMP4040_IP}::{HMP4040_PORT}::SOCKET"
-    )  # connect to R&S HMP4040 device via TCPIP
+    rm = visa.ResourceManager("/usr/lib64/librsvisa.so@ivi")
+    config = dotenv_values(".hmp_env")
+    print("config ", config)
+    ip = os.getenv("IP", config["IP"])
+    print("hmp ip ", ip)
+    port = os.getenv("PORT", config["PORT"])
+    print("hmp port ", port)
+    # HMP4040 = rm.open_resource(f"TCPIP::{ip}::{port}::SOCKET")
+    connection_string = "TCPIP::{}::{}::SOCKET".format(ip, port)
+    print("Connection string:", connection_string)
+    HMP4040 = rm.open_resource(connection_string)
+    # HMP4040 = rm.open_resource("TCPIP::{}::{}::SOCKET".format(ip, port))
+
     num_of_channels = 5
 
     def __init__(self, name: str, n_channels: int = 5):
@@ -195,6 +191,5 @@ if __name__ == "__main__":
     import sys
 
     device_name, mqtt_host = sys.argv[1:]
-    load_env_file()  # Load environment variables from .env file
     device = HMP(device_name)
     run(device, mqtt_host)
