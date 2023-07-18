@@ -15,8 +15,6 @@ services:
 #  lv_hmp4040:
 #    image: centos:tedd_dcs_low_voltage
 #    platform: linux/amd64
-#    depends_on:
-#      - mosquitto
 #    build: ../..
 #    restart: always
 #    stdin_open: true
